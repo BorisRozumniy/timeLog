@@ -1,7 +1,7 @@
 export const getTimes = text => {
 	const regex = /\d{4}-\d{2}-\d{2} \d{2}:\d{2}/g;
 	const datesArray = text.match(regex);
-	return datesArray
+	return datesArray || [];
 }
 
 export const msSince1970 = timeStr => {

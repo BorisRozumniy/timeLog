@@ -50,6 +50,10 @@ describe('getTimes', () => {
 	it('getTimes with one item', () => {
 		expect(getTimes(text4)).toEqual(resultOf_getTeims4);
 	});
+
+	it('getTimes without any data-time', () => {
+		expect(getTimes('random text')).toEqual([]);
+	});
 })
 
 describe('msSince1970', () => {
