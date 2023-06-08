@@ -40,7 +40,17 @@ export const getSpendedTime = (arr) => {
 export const computingSpendTime = (text) => {
 	const datesArray = getTimes(text)
 	const intervals = getIntervals(datesArray)
-	console.log('ddd intervals', intervals);
 	const spendedTime = getSpendedTime(intervals)
 	return spendedTime
+}
+
+export const createTimeComputedText = data => {
+  const rows = data.split('\n');
+  const newRows = rows.map(row => {
+		const time = computingSpendTime(row);
+    const res = time === '' ? row : `${row} **${time}**`;
+    return res;
+  });
+  const result = newRows.join('\n');
+  return result;
 }
