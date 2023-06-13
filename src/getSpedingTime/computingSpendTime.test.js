@@ -17,6 +17,11 @@ const text5 = `
 - [ ] GP-5853 <!-- [2023-05-17 14:05][2023-05-17 14:59] -->
   - [ ] try to understand where is bug
 `
+const text6 = `
+## 2023-05-17
+- [x] GP-5828 fix for the missed category <!-- [2023-05-17 07:02][2023-05-17 08:55] [2023-05-17 09:09][2023-05-17 09:18] [2023-05-17 09:20][2023-05-17 09:30] --> **2h 2m**
+- [ ] HP GP-5818 - need to change content for golf page with KIn <!-- [2023-05-17 10:51][2023-05-17 11:22] --> **31m**
+`
 	
 const resultOf_getTeims1 = ['2023-05-15 08:12', '2023-05-15 08:20'] // 8
 const resultOf_getTeims2 = ['2023-05-16 08:10', '2023-05-16 08:14', '2023-05-16 08:39', '2023-05-16 08:42', '2023-05-16 08:55', '2023-05-16 09:01'] // 13m
@@ -32,6 +37,11 @@ const resultOf_getcreateTimeComputedText2 = `
 - [ ] timer [2023-05-17 09:24][2023-05-17 10:50] **1h 26m**
 - [ ] GP-5853 <!-- [2023-05-17 14:05][2023-05-17 14:59] --> **54m**
   - [ ] try to understand where is bug
+`
+const resultOf_getcreateTimeComputedText3 = `
+## 2023-05-17
+- [x] GP-5828 fix for the missed category <!-- [2023-05-17 07:02][2023-05-17 08:55] [2023-05-17 09:09][2023-05-17 09:18] [2023-05-17 09:20][2023-05-17 09:30] --> **2h 12m**
+- [ ] HP GP-5818 - need to change content for golf page with KIn <!-- [2023-05-17 10:51][2023-05-17 11:22] --> **31m**
 `
 
 describe('getTimes', () => {
@@ -104,5 +114,9 @@ describe('createTimeComputedText', () => {
 	
 	it('for multiple lines', () => {
 		expect(createTimeComputedText(text5)).toBe(resultOf_getcreateTimeComputedText2);
+	});
+
+	it('should to replace the time inside **time** template', () => {
+		expect(createTimeComputedText(text6)).toBe(resultOf_getcreateTimeComputedText3);
 	});
 })
