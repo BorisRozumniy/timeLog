@@ -59,3 +59,32 @@ export const createTimeComputedText = data => {
     const result = newRows.join('\n');
     return result;
 }
+
+export const writeTimeToParent = srcString => {
+    // const regex_taskWithSubtask = /- [A-Za-z]+-\d+(?:[^\n]*\n\s+- .*)*/g;
+    const regex_taskWithSubtask = /\n-\s.*(GP-\d\d\d\d)+(?:[^\n]*\n\s+- .*)*/g;
+    // const regex_taskWithSubtask = /^-\s.*(GP-\d\d\d\d)+(?:[^\n]*\n\s+- .*)*/g;
+    // const regex_taskWithSubtask = /- (\[x\] |\[ \] |[A-Za-z]+-\d+)(?:[^\n]*\n\s+- .*)*/g;
+    // - \[x\] .*(?:[^\n]*\n\s+- .*)*
+    // - \[\s\] .*(?:[^\n]*\n\s+- .*)*
+    // \[x|\s\]
+    // - \[\s\] .*(?:[^\n]*\n\s+- .*)* |- \[x\] .*(?:[^\n]*\n\s+- .*)*
+    // srcString.match(/\n## .*/g) // day row
+    // const tasks = srcString.match(/\n- .*/g)
+    // const sections = srcString.split('\n# ');
+    const tasks = srcString.match(regex_taskWithSubtask)
+
+    // console.log('ddd tasks', tasks);
+
+    const updatedTusks = tasks.map(task => {
+        let res = '';
+        const taskTime = computingSpendTime(task);
+        const rows = task.split('\n');
+        const taskWithTime = taskTime === '' ? rows[1] : `${rows[1]} **${taskTime}**`;
+        rows.splice(0, 2, taskWithTime)
+        res = rows.join('\n');
+        return res;
+    });
+    const result = updatedTusks.join('\n');
+    return result;
+}

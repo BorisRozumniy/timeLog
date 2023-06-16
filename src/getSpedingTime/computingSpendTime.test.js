@@ -1,8 +1,9 @@
-import { getTimes, msSince1970, getIntervals, getSpendedTime, computingSpendTime, createTimeComputedText } from './computingSpendTime'
+import { getTimes, msSince1970, getIntervals, getSpendedTime, computingSpendTime, createTimeComputedText, writeTimeToParent } from './computingSpendTime'
 import {
     text1, text2, text3, text4, text5, text6,
     resultOf_getTeims1, resultOf_getTeims2, resultOf_getTeims3, resultOf_getTeims4,
     resultOf_getcreateTimeComputedText1, resultOf_getcreateTimeComputedText2, resultOf_getcreateTimeComputedText3,
+    text7, text8, text9,
 } from './srcTest';
 
 describe('getTimes', () => {
@@ -79,5 +80,15 @@ describe('createTimeComputedText', () => {
 
     it('should to replace the time inside **time** template', () => {
         expect(createTimeComputedText(text6)).toBe(resultOf_getcreateTimeComputedText3);
+    });
+})
+
+describe('writeTimeToParent', () => {
+    it('should to write **time** to a parent task', () => {
+        expect(writeTimeToParent(text8)).toBe(text9);
+    });
+
+    it('should to write **time** to a parent task, do not changing subtasks', () => {
+        expect(writeTimeToParent(text6)).toBe(text7);
     });
 })
