@@ -49,9 +49,9 @@ export const createTimeComputedText = data => {
     const newRows = rows.map(row => {
         const time = computingSpendTime(row);
         let res = '';
-        const regexWrapper = /\*\*.*\*\*/g;
-        if (row.match(regexWrapper))
-            res = row.replace(regexWrapper, `**${time}**`)
+        const regexTimeWrapper = /\*\*.*\*\*/g;
+        if (row.match(regexTimeWrapper))
+            res = row.replace(regexTimeWrapper, `**${time}**`)
         else
             res = time === '' ? row : `${row} **${time}**`;
         return res;
