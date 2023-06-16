@@ -1,9 +1,18 @@
-import { getTimes, msSince1970, getIntervals, getSpendedTime, computingSpendTime, createTimeComputedText, writeTimeToParent } from './computingSpendTime'
+import {
+    getTimes,
+    msSince1970,
+    getIntervals,
+    getSpendedTime,
+    computingSpendTime,
+    createTimeComputedText,
+    writeTimeToParent,
+    getTimeForParent,
+} from './computingSpendTime'
 import {
     text1, text2, text3, text4, text5, text6,
     resultOf_getTeims1, resultOf_getTeims2, resultOf_getTeims3, resultOf_getTeims4,
     resultOf_getcreateTimeComputedText1, resultOf_getcreateTimeComputedText2, resultOf_getcreateTimeComputedText3,
-    text7, text8, text9,
+    text7, text8, text9, text10, taskData, text11,
 } from './srcTest';
 
 describe('getTimes', () => {
@@ -89,6 +98,12 @@ describe('writeTimeToParent', () => {
     });
 
     it('should to write **time** to a parent task, do not changing subtasks', () => {
-        expect(writeTimeToParent(text6)).toBe(text7);
+        expect(writeTimeToParent(text10)).toBe(text11);
+    });
+})
+
+describe('getTimeForParent', () => {
+    it('should to return time, rowNumber and rowText', () => {
+        expect(getTimeForParent(text10)).toEqual(taskData);
     });
 })

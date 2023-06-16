@@ -88,3 +88,18 @@ export const writeTimeToParent = srcString => {
     const result = updatedTusks.join('\n');
     return result;
 }
+
+export const getTimeForParent = srcString => {
+    const regex = /- [A-Za-z]+(?:[^\n]*\n\s+- .*)*/g;
+    const tasks = srcString.match(regex)
+    const res = tasks.map(task => {
+        const taskText = task
+        const taskTime = computingSpendTime(taskText);
+        const tasksRows = srcString.split('\n')
+        const taskRows = taskText.split('\n')
+        const rowText = taskRows[0];
+        const rowNumber = tasksRows.findIndex(row => row === rowText)
+        return { rowText, rowNumber, taskTime }
+    })
+    return res
+}
