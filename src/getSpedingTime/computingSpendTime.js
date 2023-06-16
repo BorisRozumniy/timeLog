@@ -44,16 +44,22 @@ export const computingSpendTime = (text) => {
     return spendedTime
 }
 
-export const createTimeComputedText = data => {
-    const rows = data.split('\n');
-    const newRows = rows.map(row => {
-        const time = computingSpendTime(row);
+export const createTimeComputedText = srcString => {
+    const tasksData = getTimeForParent(srcString)
+    const rows = srcString.split('\n');
+    const newRows = rows.map((row, index) => {
         let res = '';
+        const time = computingSpendTime(row);
         const regexTimeWrapper = /\*\*.*\*\*/g;
         if (row.match(regexTimeWrapper))
             res = row.replace(regexTimeWrapper, `**${time}**`)
         else
             res = time === '' ? row : `${row} **${time}**`;
+        // add time to parent task
+        tasksData.forEach(task => {
+            const ifIsParentTask = task.rowText === row
+            if (ifIsParentTask) res = `${row} **${task.taskTime}**`
+        });
         return res;
     });
     const result = newRows.join('\n');
@@ -90,7 +96,7 @@ export const writeTimeToParent = srcString => {
 }
 
 export const getTimeForParent = srcString => {
-    const regex = /- [A-Za-z]+(?:[^\n]*\n\s+- .*)*/g;
+    const regex = /- (\[ \] )?(\[x\] )?[A-Za-z]+(?:[^\n]*\n\s+- .*)*/g;
     const tasks = srcString.match(regex)
     const res = tasks.map(task => {
         const taskText = task

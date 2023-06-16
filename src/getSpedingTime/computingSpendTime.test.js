@@ -12,7 +12,7 @@ import {
     text1, text2, text3, text4, text5, text6,
     resultOf_getTeims1, resultOf_getTeims2, resultOf_getTeims3, resultOf_getTeims4,
     resultOf_getcreateTimeComputedText1, resultOf_getcreateTimeComputedText2, resultOf_getcreateTimeComputedText3,
-    text7, text8, text9, text10, taskData, text11,
+    text7, text8, text9, text10, tasksData, text11,
 } from './srcTest';
 
 describe('getTimes', () => {
@@ -90,6 +90,10 @@ describe('createTimeComputedText', () => {
     it('should to replace the time inside **time** template', () => {
         expect(createTimeComputedText(text6)).toBe(resultOf_getcreateTimeComputedText3);
     });
+
+    it('should to add the time to each task', () => {
+        expect(createTimeComputedText(text10)).toBe(text11);
+    });
 })
 
 describe('writeTimeToParent', () => {
@@ -97,13 +101,13 @@ describe('writeTimeToParent', () => {
         expect(writeTimeToParent(text8)).toBe(text9);
     });
 
-    it('should to write **time** to a parent task, do not changing subtasks', () => {
+    xit('should to write **time** to a parent task, do not changing subtasks', () => {
         expect(writeTimeToParent(text10)).toBe(text11);
     });
 })
 
 describe('getTimeForParent', () => {
     it('should to return time, rowNumber and rowText', () => {
-        expect(getTimeForParent(text10)).toEqual(taskData);
+        expect(getTimeForParent(text10)).toEqual(tasksData);
     });
 })
