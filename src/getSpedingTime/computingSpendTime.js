@@ -44,6 +44,29 @@ export const computingSpendTime = (text) => {
     return spendedTime
 }
 
+export const getTimeForParent = srcString => {
+    const regex = /- ((\[x\] |\[ \]){0,1}|[A-Za-z]{1,}-\d{1,})(?:[^\n]{0,}\n\s{1,}- .{0,}){0,}/g;
+    const tasks = srcString.match(regex)
+    if(!tasks) return [];
+    const matches = []
+    const res = tasks.map((task) => {
+        const taskText = task
+        const taskTime = computingSpendTime(taskText);
+        const tasksRows = srcString.split('\n')
+        const taskRows = taskText.split('\n')
+        const rowText = taskRows[0];
+
+        const rowNumber = tasksRows.findIndex((row, index) => {
+            if (row === rowText && !matches.includes(index)) {
+                matches.push(index)
+                return row === rowText
+            }
+        })
+        return { rowText, rowNumber, taskTime }
+    })
+    return res
+}
+
 export const createTimeComputedText = srcString => {
     const tasksData = getTimeForParent(srcString)
     const rows = srcString.split('\n');
@@ -97,26 +120,3 @@ export const createTimeComputedText = srcString => {
 //     const result = updatedTusks.join('\n');
 //     return result;
 // }
-
-export const getTimeForParent = srcString => {
-    const regex = /- [A-Za-z]+(?:[^\n]*\n\s+- .*)*/g;
-    const tasks = srcString.match(regex)
-    if(!tasks) return [];
-    const matches = []
-    const res = tasks.map((task) => {
-        const taskText = task
-        const taskTime = computingSpendTime(taskText);
-        const tasksRows = srcString.split('\n')
-        const taskRows = taskText.split('\n')
-        const rowText = taskRows[0];
-
-        const rowNumber = tasksRows.findIndex((row, index) => {
-            if (row === rowText && !matches.includes(index)) {
-                matches.push(index)
-                return row === rowText
-            }
-        })
-        return { rowText, rowNumber, taskTime }
-    })
-    return res
-}

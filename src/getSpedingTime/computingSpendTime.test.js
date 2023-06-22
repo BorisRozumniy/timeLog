@@ -11,7 +11,7 @@ import {
     text1, text2, text3, text4, text5, text6,
     resultOf_getTeims1, resultOf_getTeims2, resultOf_getTeims3, resultOf_getTeims4,
     resultOf_getcreateTimeComputedText1, for_text5, resultOf_getcreateTimeComputedText3,
-    text7, text8, text9, text10, tasksData, text11, text12, text13, text14, text15, text16
+    text7, text8, text9, text10, tasksData, text11, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22,
 } from './srcTest';
 
 describe('getTimes', () => {
@@ -77,6 +77,12 @@ describe('computingSpendTime', () => {
     });
 })
 
+describe('getTimeForParent', () => {
+    it('should to return time, rowNumber and rowText', () => {
+        expect(getTimeForParent(text10)).toEqual(tasksData);
+    });
+})
+
 describe('createTimeComputedText', () => {
     it('for one line', () => {
         expect(createTimeComputedText(text2)).toBe(resultOf_getcreateTimeComputedText1);
@@ -111,10 +117,10 @@ describe('should write the correct **time** to the parent task', () => {
     it('rewrite old **time**', () => {
         expect(createTimeComputedText(text15)).toBe(text16);
     });
-})
 
-describe('getTimeForParent', () => {
-    it('should to return time, rowNumber and rowText', () => {
-        expect(getTimeForParent(text10)).toEqual(tasksData);
+    it('parent task can be any string starting with "-"', () => {
+        expect(createTimeComputedText(text17)).toBe(text18);
+        expect(createTimeComputedText(text19)).toBe(text20);
+        expect(createTimeComputedText(text21)).toBe(text22);
     });
 })

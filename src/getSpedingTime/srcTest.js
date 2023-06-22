@@ -79,6 +79,12 @@ export const text10 =
   - item 1 <!-- [2023-06-14 09:49][2023-06-14 10:50] -->
   - item 2 <!-- [2023-06-14 11:53][2023-06-14 12:06] -->`
 
+export const tasksData = [
+  { taskTime: '2h 43m', rowNumber: 1, rowText: '- GP-5853' },
+  { taskTime: '2h 7m', rowNumber: 4, rowText: '- GP-5847' },
+  { taskTime: '1h 14m', rowNumber: 7, rowText: '- GP-4444' },
+]
+
 export const text11 =
 // **4h 50m**
 `## 2023-06-14
@@ -151,8 +157,33 @@ export const text16 =
 `- GP-5853 **15m**
   - [x] some activity <!-- [2023-06-13 08:00][2023-06-13 08:10] [2023-06-13 08:20][2023-06-13 08:25] -->`
 
-export const tasksData = [
-  { taskTime: '2h 43m', rowNumber: 1, rowText: '- GP-5853' },
-  { taskTime: '2h 7m', rowNumber: 4, rowText: '- GP-5847' },
-  { taskTime: '1h 14m', rowNumber: 7, rowText: '- GP-4444' },
-]
+export const text17 =
+`- any string
+  - subtask1 <!-- [2023-06-13 08:00][2023-06-13 08:10] -->
+  - subtask2 <!-- [2023-06-13 08:20][2023-06-13 08:25] -->`
+
+export const text18 =
+`- any string **15m**
+  - subtask1 <!-- [2023-06-13 08:00][2023-06-13 08:10] --> **10m**
+  - subtask2 <!-- [2023-06-13 08:20][2023-06-13 08:25] --> **5m**`
+
+export const text19 =
+`- [ ] any string
+  - subtask1 <!-- [2023-06-13 08:00][2023-06-13 08:10] -->
+  - subtask2 <!-- [2023-06-13 08:20][2023-06-13 08:25] -->`
+
+export const text20 =
+`- [ ] any string **15m**
+  - subtask1 <!-- [2023-06-13 08:00][2023-06-13 08:10] --> **10m**
+  - subtask2 <!-- [2023-06-13 08:20][2023-06-13 08:25] --> **5m**`
+
+export const text21 =
+`- [x] any string
+  - subtask1 <!-- [2023-06-13 08:00][2023-06-13 08:10] -->
+  - subtask2 <!-- [2023-06-13 08:20][2023-06-13 08:25] -->`
+
+export const text22 =
+`- [x] any string **15m**
+  - subtask1 <!-- [2023-06-13 08:00][2023-06-13 08:10] --> **10m**
+  - subtask2 <!-- [2023-06-13 08:20][2023-06-13 08:25] --> **5m**`
+
