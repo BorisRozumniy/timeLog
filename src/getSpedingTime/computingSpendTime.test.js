@@ -5,14 +5,13 @@ import {
     getSpendedTime,
     computingSpendTime,
     createTimeComputedText,
-    writeTimeToParent,
     getTimeForParent,
 } from './computingSpendTime'
 import {
     text1, text2, text3, text4, text5, text6,
     resultOf_getTeims1, resultOf_getTeims2, resultOf_getTeims3, resultOf_getTeims4,
-    resultOf_getcreateTimeComputedText1, resultOf_getcreateTimeComputedText2, resultOf_getcreateTimeComputedText3,
-    text7, text8, text9, text10, tasksData, text11,
+    resultOf_getcreateTimeComputedText1, for_text5, resultOf_getcreateTimeComputedText3,
+    text7, text8, text9, text10, tasksData, text11, text12, text13, text14, text15, text16
 } from './srcTest';
 
 describe('getTimes', () => {
@@ -84,7 +83,7 @@ describe('createTimeComputedText', () => {
     });
 
     it('for multiple lines', () => {
-        expect(createTimeComputedText(text5)).toBe(resultOf_getcreateTimeComputedText2);
+        expect(createTimeComputedText(text5)).toBe(for_text5);
     });
 
     it('should to replace the time inside **time** template', () => {
@@ -96,13 +95,21 @@ describe('createTimeComputedText', () => {
     });
 })
 
-describe('writeTimeToParent', () => {
-    it('should to write **time** to a parent task', () => {
-        expect(writeTimeToParent(text8)).toBe(text9);
+describe('should write the correct **time** to the parent task', () => {
+    it('base', () => {
+        expect(createTimeComputedText(text8)).toBe(text9);
     });
 
-    xit('should to write **time** to a parent task, do not changing subtasks', () => {
-        expect(writeTimeToParent(text10)).toBe(text11);
+    it('do not changing subtasks', () => {
+        expect(createTimeComputedText(text10)).toBe(text11);
+    });
+
+    it('if this task occurs two or more times', () => {
+        expect(createTimeComputedText(text13)).toBe(text14);
+    });
+
+    it('rewrite old **time**', () => {
+        expect(createTimeComputedText(text15)).toBe(text16);
     });
 })
 

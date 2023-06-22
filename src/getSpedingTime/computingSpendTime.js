@@ -51,60 +51,71 @@ export const createTimeComputedText = srcString => {
         let res = '';
         const time = computingSpendTime(row);
         const regexTimeWrapper = /\*\*.*\*\*/g;
+        // replace old time if the row has new time
         if (row.match(regexTimeWrapper))
             res = row.replace(regexTimeWrapper, `**${time}**`)
         else
-            res = time === '' ? row : `${row} **${time}**`;
+            res = time === ''
+            // return row if it without time
+            ? row
+            // add time to row if it has time but it hasn't time before
+            : `${row} **${time}**`;
         // add time to parent task
-        tasksData.forEach(task => {
-            const ifIsParentTask = task.rowText === row
-            if (ifIsParentTask) res = `${row} **${task.taskTime}**`
-        });
+        const currentTaskTime = tasksData.find(task => task.rowNumber === index)
+        if (currentTaskTime?.taskTime) res = `${row} **${currentTaskTime.taskTime}**`;
         return res;
     });
     const result = newRows.join('\n');
     return result;
 }
 
-export const writeTimeToParent = srcString => {
-    // const regex_taskWithSubtask = /- [A-Za-z]+-\d+(?:[^\n]*\n\s+- .*)*/g;
-    const regex_taskWithSubtask = /\n-\s.*(GP-\d\d\d\d)+(?:[^\n]*\n\s+- .*)*/g;
-    // const regex_taskWithSubtask = /^-\s.*(GP-\d\d\d\d)+(?:[^\n]*\n\s+- .*)*/g;
-    // const regex_taskWithSubtask = /- (\[x\] |\[ \] |[A-Za-z]+-\d+)(?:[^\n]*\n\s+- .*)*/g;
-    // - \[x\] .*(?:[^\n]*\n\s+- .*)*
-    // - \[\s\] .*(?:[^\n]*\n\s+- .*)*
-    // \[x|\s\]
-    // - \[\s\] .*(?:[^\n]*\n\s+- .*)* |- \[x\] .*(?:[^\n]*\n\s+- .*)*
-    // srcString.match(/\n## .*/g) // day row
-    // const tasks = srcString.match(/\n- .*/g)
-    // const sections = srcString.split('\n# ');
-    const tasks = srcString.match(regex_taskWithSubtask)
+// export const writeTimeToParent = srcString => {
+//     // const regex_taskWithSubtask = /- [A-Za-z]+-\d+(?:[^\n]*\n\s+- .*)*/g;
+//     const regex_taskWithSubtask = /\n-\s.*(GP-\d\d\d\d)+(?:[^\n]*\n\s+- .*)*/g;
+//     // const regex_taskWithSubtask = /^-\s.*(GP-\d\d\d\d)+(?:[^\n]*\n\s+- .*)*/g;
+//     // const regex_taskWithSubtask = /- (\[x\] |\[ \] |[A-Za-z]+-\d+)(?:[^\n]*\n\s+- .*)*/g;
+//     // - \[x\] .*(?:[^\n]*\n\s+- .*)*
+//     // - \[\s\] .*(?:[^\n]*\n\s+- .*)*
+//     // \[x|\s\]
+//     // - \[\s\] .*(?:[^\n]*\n\s+- .*)* |- \[x\] .*(?:[^\n]*\n\s+- .*)*
+//     // srcString.match(/\n## .*/g) // day row
+//     // const tasks = srcString.match(/\n- .*/g)
+//     // const sections = srcString.split('\n# ');
+//     const tasks = srcString.match(regex_taskWithSubtask)
 
-    // console.log('ddd tasks', tasks);
+//     // console.log('ddd tasks', tasks);
 
-    const updatedTusks = tasks.map(task => {
-        let res = '';
-        const taskTime = computingSpendTime(task);
-        const rows = task.split('\n');
-        const taskWithTime = taskTime === '' ? rows[1] : `${rows[1]} **${taskTime}**`;
-        rows.splice(0, 2, taskWithTime)
-        res = rows.join('\n');
-        return res;
-    });
-    const result = updatedTusks.join('\n');
-    return result;
-}
+//     const updatedTusks = tasks.map(task => {
+//         let res = '';
+//         const taskTime = computingSpendTime(task);
+//         const rows = task.split('\n');
+//         const taskWithTime = taskTime === '' ? rows[1] : `${rows[1]} **${taskTime}**`;
+//         rows.splice(0, 2, taskWithTime)
+//         res = rows.join('\n');
+//         return res;
+//     });
+//     const result = updatedTusks.join('\n');
+//     return result;
+// }
 
 export const getTimeForParent = srcString => {
-    const regex = /- (\[ \] )?(\[x\] )?[A-Za-z]+(?:[^\n]*\n\s+- .*)*/g;
+    const regex = /- [A-Za-z]+(?:[^\n]*\n\s+- .*)*/g;
     const tasks = srcString.match(regex)
-    const res = tasks.map(task => {
+    if(!tasks) return [];
+    const matches = []
+    const res = tasks.map((task) => {
         const taskText = task
         const taskTime = computingSpendTime(taskText);
         const tasksRows = srcString.split('\n')
         const taskRows = taskText.split('\n')
         const rowText = taskRows[0];
-        const rowNumber = tasksRows.findIndex(row => row === rowText)
+
+        const rowNumber = tasksRows.findIndex((row, index) => {
+            if (row === rowText && !matches.includes(index)) {
+                matches.push(index)
+                return row === rowText
+            }
+        })
         return { rowText, rowNumber, taskTime }
     })
     return res

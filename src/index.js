@@ -1,5 +1,4 @@
-import { writeTimeToParent } from './getSpedingTime/computingSpendTime'
-// import { createTimeComputedText } from './getSpedingTime/computingSpendTime'
+import { createTimeComputedText } from './getSpedingTime/computingSpendTime'
 
 const fs = require('fs');
 
@@ -9,8 +8,7 @@ function readWriteAsync() {
   fs.readFile(pathToFile, 'utf-8', function(err, data){
     if (err) throw err;
 			
-    // const newValue = createTimeComputedText(data);
-    const newValue = writeTimeToParent(data);
+    const newValue = createTimeComputedText(data);
     fs.writeFile(pathToFile, newValue, 'utf-8', function (err) {
       if (err) throw err;
       console.log('filelistAsync complete');
