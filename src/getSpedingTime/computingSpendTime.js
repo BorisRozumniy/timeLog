@@ -74,14 +74,12 @@ export const createTimeComputedText = srcString => {
         let res = '';
         const rowTime = computingSpendTime(row);
 
-        // add time to parent task
         const currentTaskTime = tasksData.find(task => task.rowNumber === index)
         if (currentTaskTime?.taskTime) {
             res = `${row} **${currentTaskTime.taskTime}**`;
             return res;
         }
 
-        // replace old rowTime if the row has new rowTime
         const regexTimeWrapper = /\*\*.*\*\*/g;
         if (row.match(regexTimeWrapper)) {
             console.log('ddd row.match', row.match);
@@ -89,14 +87,12 @@ export const createTimeComputedText = srcString => {
             return res;
         }
 
-        // return row if it without rowTime
         if (rowTime === '') {
             console.log('ddd rowTime === ', rowTime === '');
             res = row
             return res;
         }
 
-        // add rowTime to row if it has rowTime but it hasn't rowTime before
         if (rowTime) {
             console.log('ddd if (rowTime)', rowTime);
             res = `${row} **${rowTime}**`;
@@ -108,32 +104,3 @@ export const createTimeComputedText = srcString => {
     const result = newRows.join('\n');
     return result;
 }
-
-// export const writeTimeToParent = srcString => {
-//     // const regex_taskWithSubtask = /- [A-Za-z]+-\d+(?:[^\n]*\n\s+- .*)*/g;
-//     const regex_taskWithSubtask = /\n-\s.*(GP-\d\d\d\d)+(?:[^\n]*\n\s+- .*)*/g;
-//     // const regex_taskWithSubtask = /^-\s.*(GP-\d\d\d\d)+(?:[^\n]*\n\s+- .*)*/g;
-//     // const regex_taskWithSubtask = /- (\[x\] |\[ \] |[A-Za-z]+-\d+)(?:[^\n]*\n\s+- .*)*/g;
-//     // - \[x\] .*(?:[^\n]*\n\s+- .*)*
-//     // - \[\s\] .*(?:[^\n]*\n\s+- .*)*
-//     // \[x|\s\]
-//     // - \[\s\] .*(?:[^\n]*\n\s+- .*)* |- \[x\] .*(?:[^\n]*\n\s+- .*)*
-//     // srcString.match(/\n## .*/g) // day row
-//     // const tasks = srcString.match(/\n- .*/g)
-//     // const sections = srcString.split('\n# ');
-//     const tasks = srcString.match(regex_taskWithSubtask)
-
-//     // console.log('ddd tasks', tasks);
-
-//     const updatedTusks = tasks.map(task => {
-//         let res = '';
-//         const taskTime = computingSpendTime(task);
-//         const rows = task.split('\n');
-//         const taskWithTime = taskTime === '' ? rows[1] : `${rows[1]} **${taskTime}**`;
-//         rows.splice(0, 2, taskWithTime)
-//         res = rows.join('\n');
-//         return res;
-//     });
-//     const result = updatedTusks.join('\n');
-//     return result;
-// }
