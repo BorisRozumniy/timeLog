@@ -72,20 +72,37 @@ export const createTimeComputedText = srcString => {
     const rows = srcString.split('\n');
     const newRows = rows.map((row, index) => {
         let res = '';
-        const time = computingSpendTime(row);
-        const regexTimeWrapper = /\*\*.*\*\*/g;
-        // replace old time if the row has new time
-        if (row.match(regexTimeWrapper))
-            res = row.replace(regexTimeWrapper, `**${time}**`)
-        else
-            res = time === ''
-            // return row if it without time
-            ? row
-            // add time to row if it has time but it hasn't time before
-            : `${row} **${time}**`;
+        const rowTime = computingSpendTime(row);
+
         // add time to parent task
         const currentTaskTime = tasksData.find(task => task.rowNumber === index)
-        if (currentTaskTime?.taskTime) res = `${row} **${currentTaskTime.taskTime}**`;
+        if (currentTaskTime?.taskTime) {
+            res = `${row} **${currentTaskTime.taskTime}**`;
+            return res;
+        }
+
+        // replace old rowTime if the row has new rowTime
+        const regexTimeWrapper = /\*\*.*\*\*/g;
+        if (row.match(regexTimeWrapper)) {
+            console.log('ddd row.match', row.match);
+            res = row.replace(regexTimeWrapper, `**${rowTime}**`)
+            return res;
+        }
+
+        // return row if it without rowTime
+        if (rowTime === '') {
+            console.log('ddd rowTime === ', rowTime === '');
+            res = row
+            return res;
+        }
+
+        // add rowTime to row if it has rowTime but it hasn't rowTime before
+        if (rowTime) {
+            console.log('ddd if (rowTime)', rowTime);
+            res = `${row} **${rowTime}**`;
+            return res;
+        }
+
         return res;
     });
     const result = newRows.join('\n');
