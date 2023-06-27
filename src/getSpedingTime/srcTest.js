@@ -187,3 +187,11 @@ export const text22 =
   - subtask1 <!-- [2023-06-13 08:00][2023-06-13 08:10] --> **10m**
   - subtask2 <!-- [2023-06-13 08:20][2023-06-13 08:25] --> **5m**`
 
+export const text23 =
+`- [x] any string **15m**`
+
+export const text24 =
+`- [x] any string **18m**`
+
+export const text25 =
+`- [x] any string `

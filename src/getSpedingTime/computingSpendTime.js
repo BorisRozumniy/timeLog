@@ -67,6 +67,17 @@ export const getTimeForParent = srcString => {
     return res
 }
 
+export const replaceOldTime = (text, time) => {
+    const regexTimeWrapper = /\*\*.*\*\*/g;
+    if (!text)
+        return ''
+    if (!time)
+        return text.replace(regexTimeWrapper, '')
+    if (text.match(regexTimeWrapper))
+        return text.replace(regexTimeWrapper, `**${time}**`)
+    return text
+}
+
 export const createTimeComputedText = srcString => {
     const tasksData = getTimeForParent(srcString)
     const rows = srcString.split('\n');
@@ -77,24 +88,25 @@ export const createTimeComputedText = srcString => {
         const currentTaskTime = tasksData.find(task => task.rowNumber === index)
         if (currentTaskTime?.taskTime) {
             res = `${row} **${currentTaskTime.taskTime}**`;
+            // res = replaceOldTime(row, currentTaskTime.taskTime)
             return res;
         }
 
         const regexTimeWrapper = /\*\*.*\*\*/g;
         if (row.match(regexTimeWrapper)) {
-            console.log('ddd row.match', row.match);
+            // console.log('ddd row.match', row.match);
             res = row.replace(regexTimeWrapper, `**${rowTime}**`)
             return res;
         }
 
         if (rowTime === '') {
-            console.log('ddd rowTime === ', rowTime === '');
+            // console.log('ddd rowTime === ', rowTime === '');
             res = row
             return res;
         }
 
         if (rowTime) {
-            console.log('ddd if (rowTime)', rowTime);
+            // console.log('ddd if (rowTime)', rowTime);
             res = `${row} **${rowTime}**`;
             return res;
         }

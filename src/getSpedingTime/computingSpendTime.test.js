@@ -6,12 +6,14 @@ import {
     computingSpendTime,
     createTimeComputedText,
     getTimeForParent,
+    replaceOldTime,
 } from './computingSpendTime'
 import {
     text1, text2, text3, text4, text5, text6,
     resultOf_getTeims1, resultOf_getTeims2, resultOf_getTeims3, resultOf_getTeims4,
     resultOf_getcreateTimeComputedText1, for_text5, resultOf_getcreateTimeComputedText3,
-    text7, text8, text9, text10, tasksData, text11, text12, text13, text14, text15, text16, text17, text18, text19, text20, text21, text22,
+    text7, text8, text9, text10, tasksData, text11, text12, text13, text14, text15,
+    text16, text17, text18, text19, text20, text21, text22, text23, text24, text25,
 } from './srcTest';
 
 describe('getTimes', () => {
@@ -101,7 +103,25 @@ describe('createTimeComputedText', () => {
     });
 })
 
-describe('should write the correct **time** to the parent task', () => {
+describe('replaceOldTime should rewrite old **time**', () => {
+    it('with new time', () => {
+        expect(replaceOldTime(text23, '18m')).toBe(text24);
+    });
+
+    it('with the same time', () => {
+        expect(replaceOldTime(text23, '15m')).toBe(text23);
+    });
+
+    it('without time', () => {
+        expect(replaceOldTime(text23, '')).toBe(text25);
+    });
+
+    it('withwrong params', () => {
+        expect(replaceOldTime()).toBe('');
+    });
+})
+
+describe('createTimeComputedText should write the correct **time** to the parent task', () => {
     it('base', () => {
         expect(createTimeComputedText(text8)).toBe(text9);
     });
