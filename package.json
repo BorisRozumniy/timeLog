@@ -9,7 +9,7 @@
     "start": "webpack-dev-server",
     "build": "babel src -d lib",
     "test": "jest --watch",
-    "calculate": "node .\\lib\\index C:\\Users\\boris.rozumnyi\\Desktop\\work-notes\\logs\\testLogTimeScript.md"
+    "wt": "node .\\lib\\index C:\\Users\\boris.rozumnyi\\Desktop\\work-notes\\logs\\testLogTimeScript.md"
   },
   "dependencies": {
     "@babel/cli": "^7.21.0",
