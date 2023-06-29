@@ -6,7 +6,7 @@ import {
     computingSpendTime,
     createTimeComputedText,
     getTimeForParent,
-    replaceOldTime,
+    writeTime,
 } from './computingSpendTime'
 import {
     text1, text2, text3, text4, text5, text6,
@@ -103,21 +103,21 @@ describe('createTimeComputedText', () => {
     });
 })
 
-describe('replaceOldTime should rewrite old **time**', () => {
+describe('writeTime should rewrite old **time**', () => {
     it('with new time', () => {
-        expect(replaceOldTime(text23, '18m')).toBe(text24);
+        expect(writeTime(text23, '18m')).toBe(text24);
     });
 
     it('with the same time', () => {
-        expect(replaceOldTime(text23, '15m')).toBe(text23);
+        expect(writeTime(text23, '15m')).toBe(text23);
     });
 
     it('without time', () => {
-        expect(replaceOldTime(text23, '')).toBe(text25);
+        expect(writeTime(text23, '')).toBe(text25);
     });
 
     it('withwrong params', () => {
-        expect(replaceOldTime()).toBe('');
+        expect(writeTime()).toBe('');
     });
 })
 
@@ -136,6 +136,13 @@ describe('createTimeComputedText should write the correct **time** to the parent
 
     it('rewrite old **time**', () => {
         expect(createTimeComputedText(text15)).toBe(text16);
+        const text = `- GP-3333 **15m**
+        - subtask1 <!-- [2023-06-13 08:00][2023-06-13 08:11] --> **10m**
+        - subtask2 <!-- [2023-06-13 08:20][2023-06-13 08:25] --> **5m**`
+        const res = `- GP-3333 **16m**
+        - subtask1 <!-- [2023-06-13 08:00][2023-06-13 08:11] --> **11m**
+        - subtask2 <!-- [2023-06-13 08:20][2023-06-13 08:25] --> **5m**` 
+        expect(createTimeComputedText(text)).toBe(res);
     });
 
     it('parent task can be any string starting with "-"', () => {
