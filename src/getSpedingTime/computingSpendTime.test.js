@@ -64,8 +64,11 @@ describe('getSpendedTime shoul return spended time in the "1h 34m" format', () =
 
     it('for hours', () => {
         expect(getSpendedTime([83])).toBe('1h 23m');
-        expect(getSpendedTime([30, 30, 60])).toBe('2h ');
         expect(getSpendedTime([300, 30, 60])).toBe('6h 30m');
+    });
+    
+    it('for an hour', () => {
+        expect(getSpendedTime([30, 30, 60])).toBe('2h');
     });
 })
 

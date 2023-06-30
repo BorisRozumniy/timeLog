@@ -32,9 +32,12 @@ export const getSpendedTime = (arr) => {
     );
 
     let
-        h = Math.floor(sum / 60) !== 0 ? `${Math.floor(sum / 60)}h ` : '',
+        h = Math.floor(sum / 60) !== 0 ? `${Math.floor(sum / 60)}h` : '',
         m = sum % 60 !== 0 ? `${sum % 60}m` : ''
-    return `${h}${m}`
+    if (h && !m) return h
+    if (!h && m) return m
+    if (h && m) return `${h} ${m}`
+    return ''
 }
 
 export const computingSpendTime = (text) => {
