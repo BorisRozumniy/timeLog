@@ -9,7 +9,9 @@
     "start": "webpack-dev-server",
     "build": "babel src -d lib",
     "test": "jest --watch",
-    "wt": "node .\\lib\\index C:\\Users\\boris.rozumnyi\\Desktop\\work-notes\\logs\\testLogTimeScript.md"
+    "wt-test": "node .\\lib\\index C:\\Users\\boris.rozumnyi\\Desktop\\work-notes\\logs\\testLogTimeScript.md",
+    "wt": "node .\\lib\\index C:\\Users\\boris.rozumnyi\\Desktop\\work-notes\\logs\\2023_06_26-30.md",
+    "in-the-logs-folder": "node D:\\petprojects\\timeLog\\lib\\index.js 2023_06_26-30.md"
   },
   "dependencies": {
     "@babel/cli": "^7.21.0",
